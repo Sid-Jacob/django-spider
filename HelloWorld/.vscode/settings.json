@@ -1,0 +1,112 @@
+// {
+//     "git.ignoreLegacyWarning": true,
+{
+    "git.ignoreLegacyWarning": true, //启用vscode图标
+    "python.pythonPath": "D:\\Programs\\python3.7\\python.exe", // python3路径
+    "editor.lineHeight": 26, // 编辑器中的行高
+    "editor.fontSize": 18, // 编辑器中的字体
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": true, //编辑器自动保存
+    //"python.linting.flake8Enabled": true, //启用flake8，首先需要pip3 install falke8
+    "python.formatting.provider": "yapf", ///启用yapf，首先需要pip3 install yapf
+    "editor.renderIndentGuides": false,
+    "path-intellisense.autoSlashAfterDirectory": true,
+    "path-intellisense.extensionOnImport": true, // 配色方案
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django",
+        "--disable-msg=C0111"
+    ], // 忽略的警告信息
+    // 下面是topper的插入header配置
+    "topper.customTemplateParameters": [
+        {
+            "personalProfile": {
+                "author": "你的名字",
+                "website": "bulbasaur.github.bitbucket.yababbdadado.com",
+                "copyright": "None \n None",
+                "license": "None",
+                "email": "你的邮箱"
+            }
+        },
+        {
+            "officeProfile": {
+                "author": "John Doe",
+                "department": "Product Development",
+                "email": "john.doe@doejohn.com"
+            }
+        }
+    ],
+    "topper.headerTemplates": [
+        {
+            "defaultCStyled": {
+                "headerBegin": "/**",
+                "headerPrefix": "*",
+                "headerEnd": "*/",
+                "template": [
+                    "${headerBegin}",
+                    "${headerPrefix} ${fileName}",
+                    "${headerPrefix} @author ${author}",
+                    "${headerPrefix} @description ${description}",
+                    "${headerPrefix} @created ${createdDate}",
+                    "${headerPrefix} @copyright ${copyright}",
+                    "${headerPrefix} @last-modified ${lastModifiedDate}",
+                    "${headerEnd}"
+                ]
+            }
+        },
+        {
+            "python": {
+                "headerBegin": "# -*- coding: utf-8 -*-",
+                "headerPrefix": "#",
+                "headerEnd": "#",
+                "template": [
+                    "${headerBegin}",
+                    "${headerPrefix} ${fileName}",
+                    "${headerPrefix} @author ${author}",
+                    "${headerPrefix} @description ${description}",
+                    "${headerPrefix} @created ${createdDate}",
+                    "${headerPrefix} @last-modified ${lastModifiedDate}",
+                    "${headerEnd}"
+                ]
+            }
+        }
+    ],
+    "editor.fontFamily": "monospace",
+    "terminal.integrated.fontFamily": "monospace",
+    "editor.fontWeight": "500",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "workbench.iconTheme": "material-icon-theme",
+    //"python.jediEnabled": false,
+    "java.semanticHighlighting.enabled": true,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "java.requirements.JDK11Warning": false,
+    "git.ignoreWindowsGit27Warning": true,
+    "java.home": "D:\\Program Files\\Java\\jdk-15",
+    "python.languageServer": "Jedi",
+    "go.gopath": "D:\\Projects\\GoProjects",
+    "python.autoComplete.extraPaths": [
+        "D:/Programs/python3.7/Lib/site-packages",
+        "D:/Programs/python3.7/Scripts",
+        "D:/spider/test_Django/HelloWorld/HelloWorld",
+    ],
+    "python.jediEnabled": true,
+    "sonarlint.rules": {
+        "python:S1542": {
+            "level": "off"
+        }
+    },
+    "window.zoomLevel": 0,
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+}

@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+
+{% comment %} 传参数：title，essay，imglink {% endcomment %}
+
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta name="applicable-device" content="pc,mobile">
+	<meta name="MobileOptimized" content="width">
+	<meta name="HandheldFriendly" content="true">
+
+	<link rel="stylesheet" type="text/css" href="{%static '/css/top_account_v2.css'%}">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	{% comment %} 改链接 {% endcomment %}
+	<link href="{%static '/css/article-news.css'%}" rel="stylesheet">
+
+</head><body class=" sinacMNT_logout">
+
+<div class="sina-header" id="sina-header">
+    <div class="sina-header-inner">
+        <div class="sina-nav">
+            <ul class="nav-list">
+                <li class="first" data-sudaclick="nav_home_p"><a href="http://www.sina.com.cn/">新浪首页</a></li>
+                <li data-sudaclick="nav_news_p"><a href="http://news.sina.com.cn/">新闻</a></li>
+                <li data-sudaclick="nav_sports_p"><a href="http://sports.sina.com.cn/">体育</a></li>
+                <li data-sudaclick="nav_finance_p"><a href="http://finance.sina.com.cn/">财经</a></li>
+                <li data-sudaclick="nav_ent_p"><a href="http://ent.sina.com.cn/">娱乐</a></li>
+                <li data-sudaclick="nav_tech_p"><a href="http://tech.sina.com.cn/">科技</a></li>
+                <li data-sudaclick="nav_blog_p"><a href="http://blog.sina.com.cn/">博客</a></li>
+                <li data-sudaclick="nav_photo_p"><a href="http://photo.sina.com.cn/">图片</a></li>
+                <li data-sudaclick="nav_zhuanlan_p"><a href="http://zhuanlan.sina.com.cn/">专栏</a></li>
+            </ul>
+        </div>
+       <div id="SI_User" class="TAP14" style="position: relative;">
+            <div class="ac-rgst"><a data-sudaclick="nav_passport_i" href="https://login.sina.com.cn/signup/signup?entry=news" class="msg-link" target="_blank">注册</a></div>
+            <div class="ac-login"><div class="ac-login-cnt" node-type="outer"><a class="ac-login-cnt " node-type="login_btn" href="javascript:;"><span class="thumb"></span><span class="log-links">登录</span></a></div></div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="main-content w1240">
+	<div class="tab-content-inner" data-content="搜索文章">
+        <form action="#" method="GET">
+            {% comment %} <div class="row form-group">
+                <div class="col-md-12">
+                    <label for="category">搜索类别</label>
+                    <select name="category">
+                        <option value="Article">文章搜索</option>
+                        <option value="User">用户搜索</option>
+                    </select>
+                </div>
+            </div> {% endcomment %}
+            <div class="row form-group">
+                <div class="col-md-12">
+                    {% comment %} <button class="ui fluid large teal button" type="submit">登陆</button> {% endcomment %}
+                    <a href="../news_list/" class="btn btn-primary">返回新闻列表</a>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <label for="keyword">关键词搜索</label>
+                    <input type="text" class="form-control" id="keyword" name="keyword" placeholder="请输入关键词">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    {% comment %} <button class="ui fluid large teal button" type="submit">登陆</button> {% endcomment %}
+                    <input type="submit" class="btn btn-primary" name="submit" value="搜索">
+                </div>
+            </div>
+        </form>	
+    </div>
+	<!-- page-tools start -->
+	<!-- page-tools end -->
+	<!-- 正文 start -->
+	<div class="article-content clearfix article-18" id="article_content">
+		<!-- 左侧 start -->
+		<div class="article-content-list">
+            <!--当前页内容遍历展示-->
+            {%for item in page%}
+            <tr>
+                {% comment %} <td width="120px">{{forloop.counter}}</td> {% endcomment %}
+                <div class="col-lg-2 col-md-2 col-6 text-center py-4">
+                    <a href="{{item.0}}">{{item.1}}</a>
+                </div>
+            </tr>
+            {%endfor%}
+
+            <!--底部分页按钮显示-->
+            <nav aria-label="Page navigation">
+                <div class="pagination">
+                    <ul class="pagination">
+                    {% if page.has_previous %}  
+                        <li><a href="/search_list/?keyword={{keyword}}&page={{page.previous_page_number}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span></a></li>
+                    {% endif %}
+
+                    {% for num in page.paginator.page_range%} 
+                        {%if pindex == page.number%}
+                            <li><a href="">{{ num }}</a></li>
+                        {%else%}
+                            <li><a href="/search_list/?keyword={{keyword}}&page={{num}}">{{ num }}</a></li>
+                        {%endif%}
+                    {% endfor %}
+
+                    {% if page.has_next %}  
+                        <li><a href="/search_list/?keyword={{keyword}}&page={{page.next_page_number}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span></a></li>
+                    {% endif %}
+                    </ul>
+                </div>
+            </nav>
+		</div>
+	</div>
+</div>
+
+</body></html>

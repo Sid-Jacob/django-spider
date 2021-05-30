@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+
+{% comment %} 传参数：title，essay，imglink {% endcomment %}
+
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta name="applicable-device" content="pc,mobile">
+	<meta name="MobileOptimized" content="width">
+	<meta name="HandheldFriendly" content="true">
+
+	<link rel="stylesheet" type="text/css" href="{%static '/css/top_account_v2.css'%}">
+	{% comment %} 改链接 {% endcomment %}
+	<link href="{%static '/css/article-news.css'%}" rel="stylesheet">
+	<meta charset="utf-8">
+<script>
+function loadXMLDoc1(num)
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		// IE6, IE5 浏览器执行代码
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("likes_num").innerHTML=xmlhttp.responseText;
+		}
+	}
+	url = "/likes/likes_nums?type=Article&&obj_id="+num
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send();
+}
+function loadXMLDoc2(num)
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		// IE6, IE5 浏览器执行代码
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("likes_num").innerHTML=xmlhttp.responseText;
+		}
+	}
+	url = "/likes/likes_change?type=Article&&obj_id="+num
+	xmlhttp.open("GET",url,true);
+	xmlhttp.send();
+}
+</script>
+</head><body class=" sinacMNT_logout"  onload="loadXMLDoc1({{data.id}});">
+
+<div class="sina-header" id="sina-header">
+    <div class="sina-header-inner">
+        <div class="sina-nav">
+            <ul class="nav-list">
+                <li class="first" data-sudaclick="nav_home_p"><a href="../">主页</a></li>
+                <li data-sudaclick="nav_news_p"><a href="http://news.sina.com.cn/">新闻</a></li>
+                <li data-sudaclick="nav_sports_p"><a href="http://sports.sina.com.cn/">体育</a></li>
+                <li data-sudaclick="nav_finance_p"><a href="http://finance.sina.com.cn/">财经</a></li>
+                <li data-sudaclick="nav_ent_p"><a href="http://ent.sina.com.cn/">娱乐</a></li>
+                <li data-sudaclick="nav_tech_p"><a href="http://tech.sina.com.cn/">科技</a></li>
+                <li data-sudaclick="nav_blog_p"><a href="http://blog.sina.com.cn/">博客</a></li>
+                <li data-sudaclick="nav_photo_p"><a href="http://photo.sina.com.cn/">图片</a></li>
+                <li data-sudaclick="nav_zhuanlan_p"><a href="http://zhuanlan.sina.com.cn/">专栏</a></li>
+            </ul>
+        </div>
+       <div id="SI_User" class="TAP14" style="position: relative;">
+            <div class="ac-rgst"><a data-sudaclick="nav_passport_i" href="../login/" class="msg-link" target="_blank">注册</a></div>
+            <div class="ac-login"><div class="ac-login-cnt" node-type="outer"><a class="ac-login-cnt " node-type="login_btn" href="../login/"><span class="thumb"></span><span class="log-links">登录</span></a></div></div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="main-content w1240">
+	<h1 class="main-title">{{data.title}}</h1>
+	<!-- page-tools start -->
+	<style type="text/css">
+	.top-bar-inner .second-title{font-size: 18px;width: 600px;}
+	@media screen and (min-width:768px) and (max-width:1480px){
+		.top-bar-inner .second-title{width: 400px;}
+	}
+	</style>
+	<!-- page-tools end -->
+	<!-- 点赞功能区 start -->
+	<div id="likes_num"><h2>？？？</h2></div>
+	<button type="button" onclick="loadXMLDoc2({{data.id}})">点赞</button>
+	<!-- 正文 start -->
+	<div class="article-content clearfix article-18" id="article_content">
+		<!-- 左侧 start -->
+		<div class="article-content-left">
+			<!-- 正文 start -->
+			<div class="article" id="article">
+				<div class="img_wrapper">
+					{% comment %} 改链接 {% endcomment %}
+					{% comment %} <img src="{%static '/images/news.png'%}" alt=""> {% endcomment %}
+					<img src={{data.imglink}} alt="">
+					<span class="img_descr"></span></div>
+				<p cms-style="font-L">　　{{data.essay}}</p>
+			</div>
+		</div>
+	</div>
+	<!-- 提交评论区 start -->
+		
+	<form action="{% url 'Comment:post_comment' data.id %}" method="post" class="comment-form">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-md-12">
+				<label for="{{ form.text.id_for_label }}">评论：</label>
+				{{ form.text }}
+				{{ form.text.errors }}
+				<button type="submit" class="comment-btn">发表</button>
+			</div>
+		</div>    <!-- row -->
+	</form>
+	<!-- 评论显示区 start -->
+	<ul class="comment-list list-unstyled">
+		{% for comment in comment_list %}
+		<li class="comment-item">
+			<div class="text">
+				{{ comment.text }}
+			</div>
+			<span class="username">用户：{{ comment.username }}</span>
+			<time class="submit-date">创建时间：{{ comment.create_time }}</time>
+		</li>
+		{% empty %}
+		暂无评论
+		{% endfor %}
+	</ul>
+</div>
+
+</body></html>
